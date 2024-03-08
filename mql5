@@ -1,0 +1,120 @@
+
+
+//+------------------------------------------------------------------+
+//|                                              Ka Ching EA         |
+//|                                              forexroboteasy.com  |
+//|                                              Forex Robot Easy Team|
+//+------------------------------------------------------------------+
+
+//--- Include necessary libraries
+#include <Trade\Trade.mqh>
+
+//--- Define constants
+#define TAKE_PROFIT 100
+#define STOP_LOSS 50
+
+//--- Define variables
+CTrade trade;
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   //--- Set trade parameters
+   trade.SetExpertMagicNumber(123456);
+   trade.SetDeviationInPoints(5);
+   
+   //--- Print initialization message
+   Print('Ka Ching EA initialized');
+   
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+   //--- Perform market strength analysis
+   double marketStrength = AnalyzeMarketStrength();
+   
+   //--- Check for pivot points
+   bool pivotPointExists = CheckForPivotPoints();
+   
+   //--- Open trading positions based on market conditions
+   if(marketStrength > 0.8 && pivotPointExists)
+   {
+      OpenBuyPosition();
+   }
+   else if(marketStrength < 0.2 && pivotPointExists)
+   {
+      OpenSellPosition();
+   }
+}
+
+//+------------------------------------------------------------------+
+//| Analyze market strength                                          |
+//+------------------------------------------------------------------+
+double AnalyzeMarketStrength()
+{
+   //--- Placeholder for market strength analysis
+   double marketStrength = 0.9;
+   
+   return marketStrength;
+}
+
+//+------------------------------------------------------------------+
+//| Check for pivot points                                           |
+//+------------------------------------------------------------------+
+bool CheckForPivotPoints()
+{
+   //--- Placeholder for pivot point check
+   bool pivotPointExists = true;
+   
+   return pivotPointExists;
+}
+
+//+------------------------------------------------------------------+
+//| Open buy position                                                |
+//+------------------------------------------------------------------+
+void OpenBuyPosition()
+{
+   //--- Perform necessary calculations
+   double entryPrice = Ask;
+   double takeProfit = entryPrice + TAKE_PROFIT * _Point;
+   double stopLoss = entryPrice - STOP_LOSS * _Point;
+   
+   //--- Open buy position
+   trade.Buy(0.1, entryPrice, stopLoss, takeProfit, 'Ka Ching Buy');
+   
+   //--- Print buy position opened message
+   Print('Buy position opened');
+}
+
+//+------------------------------------------------------------------+
+//| Open sell position                                               |
+//+------------------------------------------------------------------+
+void OpenSellPosition()
+{
+   //--- Perform necessary calculations
+   double entryPrice = Bid;
+   double takeProfit = entryPrice - TAKE_PROFIT * _Point;
+   double stopLoss = entryPrice + STOP_LOSS * _Point;
+   
+   //--- Open sell position
+   trade.Sell(0.1, entryPrice, stopLoss, takeProfit, 'Ka Ching Sell');
+   
+   //--- Print sell position opened message
+   Print('Sell position opened');
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   //--- Print deinitialization message
+   Print('Ka Ching EA deinitialized');
+}
+
